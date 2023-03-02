@@ -7,7 +7,7 @@ if exist py\kl.py (
 		cd py
 		GOTO run
 	) else (
-	GOTO install
+		GOTO install
 	)
 ) else (
 	GOTO install
